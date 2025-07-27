@@ -5,13 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Puthal - Mental Health Well-being</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
     <header>
         <div>
-            <img src="img\logo.jpg" alt="Puthal Logo">
+            <img src="img/logo.jpg" alt="Puthal Logo">
         </div>
         <nav>
             <ul>
@@ -20,50 +24,87 @@
                 <li><a href="#features">Features</a></li>
                 <li><a href="#join-us">Join Us</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li>
+                    <a href="#search" aria-label="Search">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="search-icon">
+                          <circle cx="11" cy="11" r="8"></circle>
+                          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </a>
+                </li>
             </ul>
         </nav>
-        <button class="dark-toggle" onclick="toggleDark()" aria-label="Toggle Dark Mode">
-      <span id="theme-icon">🌙</span>
     </header>
 
     <main>
         <section id="hero">
-            <div>
+            <div class="hero-content">
                 <h1>Mental Health Well-being Reimagined</h1>
                 <p>Empowering individuals to prioritize their mental well-being through innovative technology.</p>
-                <div>
+                <div class="store-links">
                     <a href="https://www.apple.com/app-store/" target="_blank">
-                        <img src="img\appstore.png" alt="Download on the App Store">
+                        <img src="img/appstore.png" alt="Download on the App Store">
                     </a>
                     <a href="https://play.google.com/store" target="_blank">
-                        <img src="img\Gstore.png" alt="Get it on Google Play">
+                        <img src="img/Gstore.png" alt="Get it on Google Play">
                     </a>
                 </div>
             </div>
-            <div>
-                <img src="img\mobile preview.png" alt="Puthal Mobile App Preview">
+
+            <div class="hero-device-bg">
+                <div class="app-screen">
+                    
+                    <div class="screen-header">
+                        <span class="logo-text">Puthal</span>
+                        <span class="screen-welcome">Welcome back</span>
+                    </div>
+                    <div class="screen-question">
+                        <span>How are you feeling?</span>
+                    </div>
+                    <div class="mood-faces">
+                        <button class="mood-btn" aria-label="Sad">
+                            <span class="mood-emoji">&#128577;</span>
+                            <span class="mood-label">Sad</span>
+                        </button>
+                        <button class="mood-btn" aria-label="Normal">
+                            <span class="mood-emoji">&#128528;</span>
+                            <span class="mood-label">Normal</span>
+                        </button>
+                        <button class="mood-btn" aria-label="Cared">
+                            <span class="mood-emoji">&#128522;</span>
+                            <span class="mood-label">Cared</span>
+                        </button>
+                        <button class="mood-btn" aria-label="Happy">
+                            <span class="mood-emoji">&#128515;</span>
+                            <span class="mood-label">Happy</span>
+                        </button>
+                    </div>
+                    <div class="screen-meditation">
+                        <img src="img\medication.png" alt="Meditation illustration">
+                    </div>
+                </div>
             </div>
         </section>
 
         <section id="features">
-            <div>
-                <div>
-                    <img src="img\mood.png" alt="AI Mood Tracking Icon">
+            <div class="features-flex">
+                <div class="feature-block">
+                    <img src="img/mood.png" alt="AI Mood Tracking Icon">
                     <h3>AI Mood Tracking</h3>
-                    <p>AI-driven-mood monitoring</p>
+                    <p>AI-driven mood monitoring</p>
                 </div>
-                <div>
-                    <img src="img\mind.png" alt="Mindfulness Exercises Icon">
+                <div class="feature-block">
+                    <img src="img/mind.png" alt="Mindfulness Exercises Icon">
                     <h3>Mindfulness Exercises</h3>
-                    <p>Exercises for Inner peace</p>
+                    <p>Exercises for inner peace</p>
                 </div>
-                <div>
-                    <img src="img\mind.png" alt="Therapy & Counseling Icon">
+                <div class="feature-block">
+                    <img src="img/mind.png" alt="Therapy & Counseling Icon">
                     <h3>Therapy & Counseling</h3>
                     <p>Professional support & resources</p>
                 </div>
-                <div>
-                    <img src="img\community.png" alt="Community Support Icon">
+                <div class="feature-block">
+                    <img src="img/community.png" alt="Community Support Icon">
                     <h3>Community Support</h3>
                     <p>Connect with others</p>
                 </div>
@@ -76,5 +117,4 @@
     </footer>
 
 </body>
-
 </html>
