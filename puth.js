@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
 import {
   getAuth,
@@ -11,7 +11,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyDjqT8Bf3XARYLdD0pU8CQ6Y9NRnT-OsRc",
   authDomain: "puthal--healh-care.firebaseapp.com",
@@ -25,7 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// ----- Modal UI logic -----
 function openModal(modal) { modal.classList.add('open'); }
 function closeModal(modal) { modal.classList.remove('open'); }
 
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const signupModal = document.getElementById('signup-modal');
   const loginModal = document.getElementById('login-modal');
 
-  // Modal triggers
+s
   document.body.addEventListener('click', function(e) {
     if (e.target.id === 'nav-signup') { e.preventDefault(); openModal(signupModal); }
     if (e.target.id === 'nav-login') { e.preventDefault(); openModal(loginModal); }
@@ -46,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === loginModal) closeModal(loginModal);
   });
 
-  // Signup form logic
+  // Signup form
   document.getElementById('signupForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const name = document.getElementById('signup-name').value.trim();
@@ -56,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const errorMsg = document.getElementById('signup-error');
     errorMsg.style.color = "#e14444";
 
-    //--- validation ---
+  
     if (!name || !email || !password || !confirm)   return errorMsg.textContent = 'All fields are required.';
     if (!/^\S+@\S+\.\S+$/.test(email))              return errorMsg.textContent = 'Invalid email format.';
     if (password.length < 6)                        return errorMsg.textContent = 'Password must be at least 6 characters.';
@@ -77,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Login form logic
+  // Login form
   document.getElementById('loginForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const email = document.getElementById('login-email').value.trim();
@@ -87,12 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
     errorMsg.style.color = "#e14444";
     if (!email || !password)           return errorMsg.textContent = 'Both fields are required.';
 
-    // set persistence
+
     try {
       await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
       const userCred = await signInWithEmailAndPassword(auth, email, password);
 
-      // Show welcome message (with name) ONLY after successful login
+   
       errorMsg.style.color = "#11b878";
       const userName = userCred.user.displayName || "User";
       errorMsg.textContent = `Welcome back, ${userName}!`;
@@ -102,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         closeModal(loginModal);
         errorMsg.textContent = "";
-        // Redirect to dashboard (no name shown there)
+      
         window.location.href = "dashboard.html"; 
       }, 1200);
 
@@ -115,11 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Protect dashboard (no displayName/message here)
   if (window.location.pathname.endsWith("dashboard.html")) {
     onAuthStateChanged(auth, (user) => {
       if (!user) window.location.href = "index.html"; // Not logged in
-      // DO NOT show user name here
+     
     });
   }
 });
