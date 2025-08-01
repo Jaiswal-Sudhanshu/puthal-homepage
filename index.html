@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Puthal - Mental Health Well-being</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <header>
     <div>
@@ -26,29 +21,11 @@
         <li><a href="#features">Features</a></li>
         <li><a href="#join-us">Join Us</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li>
-          <a href="#search" aria-label="Search">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="search-icon"
-            >
-              <circle cx="11" cy="11" r="8"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-            </svg>
-          </a>
-        </li>
+        <li><a href="#" id="nav-signup">Sign Up</a></li>
+        <li><a href="#" id="nav-login">Log In</a></li>
       </ul>
     </nav>
   </header>
-
   <main>
     
     <section id="hero">
@@ -328,11 +305,53 @@
     </section>
   </main>
 
+  <!-- Signup Modal -->
+  <div id="signup-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="signup-close">&times;</span>
+      <h2>Sign Up</h2>
+      <form id="signupForm" class="auth-form" novalidate>
+        <label for="signup-name">Name</label>
+        <input type="text" id="signup-name" name="signup-name" required autocomplete="name" />
+        <label for="signup-email">Email</label>
+        <input type="email" id="signup-email" name="signup-email" required autocomplete="email" />
+        <label for="signup-password">Password</label>
+        <input type="password" id="signup-password" name="signup-password" required minlength="6" />
+        <label for="signup-confirm">Confirm Password</label>
+        <input type="password" id="signup-confirm" name="signup-confirm" required minlength="6" />
+        <button type="submit">Sign Up</button>
+        <div class="form-message" id="signup-error"></div>
+        <p class="switch-form">Already have an account? <a href="#" id="show-login">Login</a></p>
+      </form>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="login-close">&times;</span>
+      <h2>Log In</h2>
+      <form id="loginForm" class="auth-form" novalidate>
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="login-email" required autocomplete="email" />
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" name="login-password" required />
+        <div class="remember-row">
+          <input type="checkbox" id="rememberMe" />
+          <label for="rememberMe" style="font-weight:400;">Remember Me</label>
+        </div>
+        <button type="submit">Login</button>
+        <div class="form-message" id="login-error"></div>
+        <p class="switch-form">Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
+      </form>
+    </div>
+  </div>
+
   <footer>
-    &copy; 2025 Puthal. All rights reserved. |
-    <a href="#">Privacy Policy</a>
+    &copy; 2025 Puthal. All rights reserved. | <a href="#">Privacy Policy</a>
   </footer>
 
-  
+  <!-- Firebase SDK -->
+  <script type="module" src="puth.js"></script>
 </body>
 </html>
