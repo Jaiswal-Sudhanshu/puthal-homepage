@@ -988,3 +988,23 @@ footer a:focus {
   display: flex; align-items: center; gap: 6px;
   margin-bottom: 8px; margin-top: -8px;
 }
+.auth-form input[type="tel"] {
+  padding: 0.7rem 1rem;
+  border-radius: 0.83rem;
+  border: 1.5px solid #e2ddf8;
+  font-size: 1rem;
+  font-family: 'Inter', Arial, sans-serif;
+  color: var(--headline);
+  transition: border-color 0.2s;
+}
+
+.auth-form input[type="tel"]:focus {
+  border-color: var(--brand-main);
+  outline: none;
+}
+
+.auth-form input[type="tel"]::placeholder {
+  font-style: italic;
+  color: #aaa;
+}
+

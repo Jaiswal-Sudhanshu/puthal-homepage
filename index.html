@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -9,13 +10,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header>
     <div>
       <img src="img/logo.jpg" alt="Puthal Logo" />
     </div>
     <nav>
-      <ul>
+      <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+      <ul class="nav-list">
         <li><a href="#hero" class="active">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#features">Features</a></li>
@@ -23,11 +26,14 @@
         <li><a href="#contact">Contact</a></li>
         <li><a href="#" id="nav-signup">Sign Up</a></li>
         <li><a href="#" id="nav-login">Log In</a></li>
+        <li class="nav-close-li"><button class="nav-close" aria-label="Close menu">&times;</button></li>
       </ul>
+      <div class="nav-overlay"></div>
     </nav>
   </header>
+
   <main>
-    
+
     <section id="hero">
       <div class="hero-content">
         <h1>Mental Health Well-being Reimagined</h1>
@@ -36,12 +42,10 @@
           innovative technology.
         </p>
         <div class="store-links">
-          <a href="https://www.apple.com/app-store/" target="_blank"
-            ><img src="img/appstore.png" alt="Download on the App Store"
-          /></a>
-          <a href="https://play.google.com/store" target="_blank"
-            ><img src="img/Gstore.png" alt="Get it on Google Play"
-          /></a>
+          <a href="https://www.apple.com/app-store/" target="_blank"><img src="img/appstore.png"
+              alt="Download on the App Store" /></a>
+          <a href="https://play.google.com/store" target="_blank"><img src="img/Gstore.png"
+              alt="Get it on Google Play" /></a>
         </div>
       </div>
 
@@ -73,10 +77,7 @@
             </button>
           </div>
           <div class="screen-meditation">
-            <img
-              src="img/medication.png"
-              alt="Meditation illustration"
-            />
+            <img src="img/medication.png" alt="Meditation illustration" />
           </div>
         </div>
       </div>
@@ -84,7 +85,7 @@
 
     <section id="features">
       <div class="features-flex">
-     
+
         <div class="feature-block">
           <img src="img/mood.png" alt="AI Mood Tracking Icon" />
           <h3>AI Mood Tracking</h3>
@@ -233,7 +234,7 @@
       </div>
     </section>
 
-   
+
     <section id="join-us" class="join-us-section">
       <h2>Join Us</h2>
       <form class="join-form" novalidate>
@@ -241,13 +242,7 @@
         <input type="text" id="join-name" name="join-name" required autocomplete="name" />
 
         <label for="join-email">Email</label>
-        <input
-          type="email"
-          id="join-email"
-          name="join-email"
-          required
-          autocomplete="email"
-        />
+        <input type="email" id="join-email" name="join-email" required autocomplete="email" />
 
         <button type="submit">Signup for Early Access</button>
       </form>
@@ -268,7 +263,7 @@
       </div>
     </section>
 
-   
+
     <section id="contact" class="contact-section">
       <h2>Contact Us</h2>
       <form class="contact-form" novalidate>
@@ -276,13 +271,7 @@
         <input type="text" id="contact-name" name="contact-name" required autocomplete="name" />
 
         <label for="contact-email">Email</label>
-        <input
-          type="email"
-          id="contact-email"
-          name="contact-email"
-          required
-          autocomplete="email"
-        />
+        <input type="email" id="contact-email" name="contact-email" required autocomplete="email" />
 
         <label for="contact-message">Message</label>
         <textarea id="contact-message" name="contact-message" rows="3" required></textarea>
@@ -313,12 +302,20 @@
       <form id="signupForm" class="auth-form" novalidate>
         <label for="signup-name">Name</label>
         <input type="text" id="signup-name" name="signup-name" required autocomplete="name" />
+
         <label for="signup-email">Email</label>
         <input type="email" id="signup-email" name="signup-email" required autocomplete="email" />
+
+        <label for="signup-mobile">Mobile Number</label>
+        <input type="tel" id="signup-mobile" name="signup-mobile" required pattern="[0-9]{10}" autocomplete="tel"
+          placeholder="10-digit number" />
+
         <label for="signup-password">Password</label>
         <input type="password" id="signup-password" name="signup-password" required minlength="6" />
+
         <label for="signup-confirm">Confirm Password</label>
         <input type="password" id="signup-confirm" name="signup-confirm" required minlength="6" />
+
         <button type="submit">Sign Up</button>
         <div class="form-message" id="signup-error"></div>
         <p class="switch-form">Already have an account? <a href="#" id="show-login">Login</a></p>
@@ -334,12 +331,19 @@
       <form id="loginForm" class="auth-form" novalidate>
         <label for="login-email">Email</label>
         <input type="email" id="login-email" name="login-email" required autocomplete="email" />
+
+        <label for="login-mobile">Mobile Number</label>
+        <input type="tel" id="login-mobile" name="login-mobile" required pattern="[0-9]{10}" autocomplete="tel"
+          placeholder="10-digit number" />
+
         <label for="login-password">Password</label>
         <input type="password" id="login-password" name="login-password" required />
+
         <div class="remember-row">
           <input type="checkbox" id="rememberMe" />
           <label for="rememberMe" style="font-weight:400;">Remember Me</label>
         </div>
+
         <button type="submit">Login</button>
         <div class="form-message" id="login-error"></div>
         <p class="switch-form">Don't have an account? <a href="#" id="show-signup">Sign up</a></p>
@@ -351,7 +355,8 @@
     &copy; 2025 Puthal. All rights reserved. | <a href="#">Privacy Policy</a>
   </footer>
 
-  <!-- Firebase SDK -->
+  <!-- Firebase SDK and main script -->
   <script type="module" src="puth.js"></script>
 </body>
+
 </html>
