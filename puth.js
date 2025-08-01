@@ -1,4 +1,4 @@
-// Import the functions you need from the SDKs you need
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
 import {
   getAuth,
@@ -11,7 +11,7 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+// our web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyDjqT8Bf3XARYLdD0pU8CQ6Y9NRnT-OsRc",
   authDomain: "puthal--healh-care.firebaseapp.com",
@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
       await setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence);
       const userCred = await signInWithEmailAndPassword(auth, email, password);
 
-      // Show welcome message (with name) ONLY after successful login
+      // Show welcome message S
       errorMsg.style.color = "#11b878";
       const userName = userCred.user.displayName || "User";
       errorMsg.textContent = `Welcome back, ${userName}!`;
