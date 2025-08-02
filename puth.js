@@ -10,7 +10,7 @@ import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
 
-// Your web app's Firebase configuration
+// our web app's Firebase configuration
 const firebaseConfig = {
     apiKey: "AIzaSyDjqT8Bf3XARYLdD0pU8CQ6Y9NRnT-OsRc",
     authDomain: "puthal--healh-care.firebaseapp.com",
