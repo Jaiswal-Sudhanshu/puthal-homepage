@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puthal - Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js"></script>
+</head>
+
+<body class="dashboard-body">
+    <header>
+        <div>
+            <img src="img/logo.jpg" alt="Puthal Logo" />
+        </div>
+        <nav>
+            <ul class="nav-list nav-list-dashboard">
+                <li><span id="welcome-message"></span></li>
+                <li><button id="logout-btn" class="logout-button">Log Out</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="dashboard-main">
+        <section id="dashboard-content">
+            <h1 class="dashboard-headline">Your Personal Dashboard</h1>
+            <p class="dashboard-subtext">This is a safe space for your mental health journey. Explore your tools below.</p>
+
+            <div class="dashboard-features">
+                <a href="#" class="feature-card">
+                    <h3>Journaling</h3>
+                    <p>Track your thoughts and feelings.</p>
+                </a>
+                <a href="#" class="feature-card">
+                    <h3>Mood Tracker</h3>
+                    <p>Visualize your emotional trends.</p>
+                </a>
+                <a href="#" class="feature-card">
+                    <h3>Mindful Practices</h3>
+                    <p>Access guided meditations and exercises.</p>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2025 Puthal. All rights reserved. | <a href="#">Privacy Policy</a>
+    </footer>
+
+    <script type="module" src="puth.js"></script>
+    <script type="module" src="dashboard.js"></script>
+</body>
+
+</html>

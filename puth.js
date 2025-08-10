@@ -4,13 +4,14 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     updateProfile,
+    sendPasswordResetEmail,
     setPersistence,
     browserLocalPersistence,
     browserSessionPersistence,
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
 
-// our web app's Firebase configuration
+
 const firebaseConfig = {
     apiKey: "AIzaSyDjqT8Bf3XARYLdD0pU8CQ6Y9NRnT-OsRc",
     authDomain: "puthal--healh-care.firebaseapp.com",
@@ -20,11 +21,9 @@ const firebaseConfig = {
     appId: "1:428251037073:web:f374cff997e926d7af6e30"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Helper functions to open and close a modal
 function openModal(modal) {
     if (modal) {
         modal.classList.add('open');
@@ -40,8 +39,8 @@ function closeModal(modal) {
 document.addEventListener('DOMContentLoaded', () => {
     const signupModal = document.getElementById('signup-modal');
     const loginModal = document.getElementById('login-modal');
+    const forgotPasswordModal = document.getElementById('forgot-password-modal');
 
-    // --- Mobile Navigation Menu ---
     const navToggle = document.querySelector('.nav-toggle');
     const navList = document.querySelector('.nav-list');
     const navOverlay = document.querySelector('.nav-overlay');
@@ -57,65 +56,62 @@ document.addEventListener('DOMContentLoaded', () => {
         navToggle.setAttribute('aria-expanded', 'false');
     }
 
-    // Event listeners for the navigation menu
     if (navToggle && navList && navOverlay && navCloseBtn) {
         navToggle.addEventListener('click', openNavMenu);
         navCloseBtn.addEventListener('click', closeNavMenu);
         navOverlay.addEventListener('click', closeNavMenu);
-        // Close menu when a link is clicked
         navList.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', closeNavMenu);
         });
     }
 
-    // --- Modal Triggers and Handling ---
     document.body.addEventListener('click', e => {
         // Modal open triggers
         if (e.target.id === 'nav-signup') { e.preventDefault(); openModal(signupModal); }
         if (e.target.id === 'nav-login') { e.preventDefault(); openModal(loginModal); }
+        if (e.target.id === 'show-forgot-password') { e.preventDefault(); closeModal(loginModal); openModal(forgotPasswordModal); }
 
-        // Modal close triggers
         if (e.target.id === 'signup-close') { closeModal(signupModal); }
         if (e.target.id === 'login-close') { closeModal(loginModal); }
-        if (e.target === signupModal) { closeModal(signupModal); } // Click outside to close
-        if (e.target === loginModal) { closeModal(loginModal); } // Click outside to close
+        if (e.target.id === 'forgot-password-close') { closeModal(forgotPasswordModal); }
+        if (e.target === signupModal) { closeModal(signupModal); }
+        if (e.target === loginModal) { closeModal(loginModal); }
+        if (e.target === forgotPasswordModal) { closeModal(forgotPasswordModal); }
 
-        // Switch between login/signup modals
+        // Switch between auth modals
         if (e.target.id === 'show-login') { e.preventDefault(); closeModal(signupModal); openModal(loginModal); }
         if (e.target.id === 'show-signup') { e.preventDefault(); closeModal(loginModal); openModal(signupModal); }
+        if (e.target.id === 'back-to-login') { e.preventDefault(); closeModal(forgotPasswordModal); openModal(loginModal); }
     });
     
-    // Close modals with Escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === "Escape") {
             closeModal(signupModal);
             closeModal(loginModal);
+            closeModal(forgotPasswordModal);
+        }
+    });
+    onAuthStateChanged(auth, (user) => {
+        
+        if (user && window.location.pathname.endsWith('index.html')) {
+            window.location.href = 'dashboard.html';
         }
     });
 
-    // --- Signup Form Logic ---
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
         signupForm.addEventListener('submit', async e => {
             e.preventDefault();
             const name = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim();
-            const mobile = document.getElementById('signup-mobile').value.trim();
             const password = document.getElementById('signup-password').value;
             const confirm = document.getElementById('signup-confirm').value;
             const errorMsg = document.getElementById('signup-error');
             errorMsg.style.color = "#e14444";
+            errorMsg.textContent = "";
 
-            if (!name || !email || !mobile || !password || !confirm) {
+            if (!name || !email || !password || !confirm) {
                 errorMsg.textContent = 'All fields are required.';
-                return;
-            }
-            if (!/^\S+@\S+\.\S+$/.test(email)) {
-                errorMsg.textContent = 'Invalid email format.';
-                return;
-            }
-            if (!/^\d{10}$/.test(mobile)) {
-                errorMsg.textContent = 'Mobile number must be exactly 10 digits.';
                 return;
             }
             if (password.length < 6) {
@@ -131,11 +127,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const userCred = await createUserWithEmailAndPassword(auth, email, password);
                 await updateProfile(userCred.user, { displayName: name });
                 errorMsg.style.color = "#11b878";
-                errorMsg.textContent = "Signup successful! Redirecting...";
+                errorMsg.textContent = "Signup successful! Redirecting to dashboard...";
                 setTimeout(() => {
-                    closeModal(signupModal);
-                    errorMsg.textContent = "";
-                    location.reload();
+                    window.location.href = "dashboard.html";
                 }, 1500);
             } catch (err) {
                 errorMsg.textContent = err.code === "auth/email-already-in-use"
@@ -144,46 +138,55 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // --- Login Form Logic ---
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         loginForm.addEventListener('submit', async e => {
             e.preventDefault();
             const email = document.getElementById('login-email').value.trim();
-            const mobile = document.getElementById('login-mobile').value.trim();
             const password = document.getElementById('login-password').value;
             const remember = document.getElementById('rememberMe').checked;
             const errorMsg = document.getElementById('login-error');
             errorMsg.style.color = "#e14444";
+            errorMsg.textContent = "";
 
-            if (!email || !mobile || !password) {
+            if (!email || !password) {
                 errorMsg.textContent = 'All fields are required.';
-                return;
-            }
-            if (!/^\d{10}$/.test(mobile)) {
-                errorMsg.textContent = 'Mobile number must be exactly 10 digits.';
                 return;
             }
 
             try {
                 const persistence = remember ? browserLocalPersistence : browserSessionPersistence;
                 await setPersistence(auth, persistence);
-
-                const userCred = await signInWithEmailAndPassword(auth, email, password);
-                errorMsg.style.color = "#11b878";
-                const userName = userCred.user.displayName || "User";
-                errorMsg.textContent = `Welcome back, ${userName}!`;
-
-                setTimeout(() => {
-                    closeModal(loginModal);
-                    errorMsg.textContent = "";
-                    window.location.href = "dashboard.html"; // Redirect to a dashboard page
-                }, 1200);
+                await signInWithEmailAndPassword(auth, email, password);
             } catch (err) {
-                errorMsg.textContent = (err.code === "auth/wrong-password" || err.code === "auth/user-not-found" || err.code === "auth/invalid-credential")
-                    ? "Invalid credentials provided."
+                errorMsg.textContent = (err.code === "auth/invalid-credential" || err.code === "auth/wrong-password" || err.code === "auth/user-not-found")
+                    ? "Invalid email or password."
                     : err.message;
+            }
+        });
+    }
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    if (forgotPasswordForm) {
+        forgotPasswordForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const email = document.getElementById('forgot-email').value.trim();
+            const messageDiv = document.getElementById('forgot-password-message');
+            messageDiv.textContent = "";
+
+            if (!email) {
+                messageDiv.style.color = "#e14444";
+                messageDiv.textContent = "Please enter your email address.";
+                return;
+            }
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                messageDiv.style.color = "#11b878";
+                messageDiv.textContent = "If an account exists, a reset link has been sent to your email.";
+            } catch (err) {
+                messageDiv.style.color = "#e14444";
+                // Keep the error message generic for security
+                messageDiv.textContent = "An error occurred. Please try again later.";
             }
         });
     }
